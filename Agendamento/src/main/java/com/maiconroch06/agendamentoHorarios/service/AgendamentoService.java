@@ -1,4 +1,4 @@
-package com.maiconroch06.agendamento1.service;
+package com.maiconroch06.agendamentoHorarios.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.maiconroch06.agendamento1.infrastructure.repository.AgendamentoRepository;
-import com.maiconroch06.agendamento1.infrastructure.model.Agendamento;
+import com.maiconroch06.agendamentoHorarios.infrastructure.model.Agendamento;
+import com.maiconroch06.agendamentoHorarios.infrastructure.repository.AgendamentoRepository;
 
 import lombok.RequiredArgsConstructor;
 

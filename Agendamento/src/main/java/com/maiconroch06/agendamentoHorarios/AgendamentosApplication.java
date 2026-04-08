@@ -1,4 +1,4 @@
-package com.maiconroch06.agendamento1;
+package com.maiconroch06.agendamentoHorarios;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

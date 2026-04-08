@@ -1,11 +1,11 @@
-package com.maiconroch06.agendamento1.infrastructure.repository;
+package com.maiconroch06.agendamentoHorarios.infrastructure.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.maiconroch06.agendamento1.infrastructure.model.Agendamento;
+import com.maiconroch06.agendamentoHorarios.infrastructure.model.Agendamento;
 
 import jakarta.transaction.Transactional;
 

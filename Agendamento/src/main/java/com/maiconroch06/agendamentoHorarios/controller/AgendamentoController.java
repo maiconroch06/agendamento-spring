@@ -1,4 +1,4 @@
-package com.maiconroch06.agendamento1.controller;
+package com.maiconroch06.agendamentoHorarios.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.maiconroch06.agendamento1.infrastructure.model.Agendamento;
-import com.maiconroch06.agendamento1.service.AgendamentoService;
+import com.maiconroch06.agendamentoHorarios.infrastructure.model.Agendamento;
+import com.maiconroch06.agendamentoHorarios.service.AgendamentoService;
 
 import lombok.RequiredArgsConstructor;
 

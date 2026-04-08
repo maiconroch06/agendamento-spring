@@ -1,4 +1,4 @@
-package com.maiconroch06.agendamento1.infrastructure.model;
+package com.maiconroch06.agendamentoHorarios.infrastructure.model;
 
 import java.time.LocalDateTime;
 
