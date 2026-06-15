@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento de Cortes</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+    <header class="topbar">
+
+        <div class="topbar_logo">
+            <img src="assets/images/logos/barbearia-dark.png" alt="logo-barbearia">
+        </div>
+        <button class="btn_historico_agendamentos">
+            <i class=""></i>
+            Meus Agendamentos
+        </button>
+
+    </header>
+
+    <main class="conteiner">
+
+        <ol class="etapa" id="etapa">
+            <li class="etapa__item ativo">
+                <span class="etapa__ciclo">1</span>
+                <span class="etapa__label">Serviço</span>
+            </li>
+            <li class="etapa__item">
+                <span class="etapa__ciclo">2</span>
+                <span class="etapa__label">Profissional</span>
+            </li>
+            <li class="etapa__item">
+                <span class="etapa__ciclo">3</span>
+                <span class="etapa__label">Horário</span>
+            </li>
+            <li class="etapa__item">
+                <span class="etapa__ciclo">4</span>
+                <span class="etapa__label">Confirmação</span>
+            </li>
+        </ol>
+
+        <!-- Cortes de Cabelo -->
+        <h1>Escolha o serviço:</h1>
+        <section class="sequencia" id="lista-servico"></section>
+
+
+        <!-- Seleção do Profissional -->
+        <h1>Escolha o profissional:</h1>
+        <section class="sequencia" id="lista-profissionais"></section>
+
+        <img src="" alt="">
+
+        <!-- Coleta do Nome do Cliente -->
+        <h1>Confirme seu agendamento:</h1>
+        <section>
+            <form class="card-name">
+                <div>
+                    <label for="cliente">Nome:</label>
+                    <input type="text" name="inputName" id="inp1" placeholder="Digite seu nome...">
+                </div>
+                
+                <div>
+                    <label for="cliente-telefone">Telefone / WhatsApps</label>
+                    <input type="tel" name="inputTel" id="inp2" placeholder="Digite seu telefone...">
+                </div>
+                
+                <div>
+                    <label for="cliente-email">E-mail</label>
+                    <input type="email" name="inputEmail" id="inp3" placeholder="Digite seu email...">
+                </div>
+            </form>
+
+        </section>
+    </main>
+    <footer>
+        <p>&copy Site de agendamento de serviços. Todos os diretos reservados</p>
+        <p>Para conhecer outros serviços <a href="Users/maico/Documents/MyProjects/site-html/sobremim.html" target="_blank">clique aqui</a></p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
