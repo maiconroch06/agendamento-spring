@@ -1,0 +1,73 @@
+body {
+    background: #161513;
+    color: #f1efe8
+}
+
+.topbar {
+    background: #232220;
+    display: flex;
+    justify-content: space-between;
+    align-self: stretch;
+}
+
+.topbar img {
+    width: 80px;
+    height: 90px;
+    object-fit: contain;
+}
+
+.conteiner {
+    max-width: 650px;
+    margin: 0 auto; /* Isso deixou centralizado  */
+    padding: 24px 16px 100px;
+}
+
+.sequencia {
+    display: grid;
+    grid-template-columns: repeat(3, 200px); /* sequencia "formato de tabela"*/
+    gap: 20px;
+    padding: 15px 5px;
+    /*display: flex; /* organiza os dados em sequencia "lateral" */
+    
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.card {
+    width: 160px;
+    height: 180px;
+    flex-shrink: 0; /* impede o card de encolher */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.dados {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-self: stretch;
+}
+
+.card img { /* As imagens tem que manter uma proporção fixa - 3-4*/
+    width: 80px;
+    height: 120px; /* Define a altura da imagem*/
+    object-fit: contain; /* mantém a proporção */
+    border-radius: 8px;
+}
+
+input[type="radio"]:checked + .card {
+    border: 2px solid #ccc;
+    transform: scale(1.05);
+}
