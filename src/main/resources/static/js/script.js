@@ -1,5 +1,5 @@
 const SERVICOS = [
-  { id: "infantil", name: "Corte infantil", duration: 30, price: 20, icon: "../assets/images/cortes/corte-infantil.webp", alt: "corte-infantil" },
+  { id: "infantil", name: "Corte Infantil", duration: 30, price: 20, icon: "../assets/images/cortes/corte-infantil.webp", alt: "corte-infantil" },
   { id: "social", name: "Corte Social", duration: 30, price: 18, icon: "../assets/images/cortes/corte-social.png", alt: "corte-social" },
   { id: "social&barba", name: "Social & Barba", duration: 50, price: 30, icon: "../assets/images/cortes/corte-social&barba.png", alt: "corte-social&barba.png" },
   { id: "degrade", name: "Degradê", duration: 40, price: 22, icon: "../assets/images/cortes/corte-degradê.png", alt: "corte-degradê.png" },
@@ -33,7 +33,7 @@ const state = {
    ============================================================ */
 
 const els = {
-  etapa = document.getElementById("etapa"),
+  etapa: document.getElementById("etapa"),
   listaServico: document.getElementById("lista-servico"),
   listaProfissionais: document.getElementById("lista-profissionais")
 };
