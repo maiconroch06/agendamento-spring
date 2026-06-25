@@ -58,28 +58,44 @@
         <!-- Coleta do Nome do Cliente -->
         <h1>Confirme seu agendamento:</h1>
         <section>
-            <form class="card-name">
-                <div>
-                    <label for="cliente">Nome:</label>
-                    <input type="text" name="inputName" id="inp1" placeholder="Digite seu nome...">
+            <form class="formulario" id="formulario" novalidate>
+                <div class="campo">
+                    <label for="inp-nome">Nome completo</label>
+                    <input type="text" id="inp-nome" name="inputNome" autocomplete="off" placeholder="Digite seu nome...">
+                    <span class="campo__erro" id="erro-nome"></span>
                 </div>
-                
-                <div>
-                    <label for="cliente-telefone">Telefone / WhatsApps</label>
-                    <input type="tel" name="inputTel" id="inp2" placeholder="Digite seu telefone...">
+
+                <div class="campo">
+                    <label for="inp-tel">Telefone / WhatsApp</label>
+                    <input type="tel" id="inp-tel" name="inputTel" autocomplete="off" placeholder="(00) 00000-0000">
+                    <span class="campo__erro" id="erro-tel"></span>
                 </div>
-                
-                <div>
-                    <label for="cliente-email">E-mail</label>
-                    <input type="email" name="inputEmail" id="inp3" placeholder="Digite seu email...">
+
+                <div class="campo">
+                    <label for="inp-email">E-mail</label>
+                    <input type="email" id="inp-email" name="inputEmail" autocomplete="off" placeholder="seuemail@exemplo.com">
+                    <span class="campo__erro" id="erro-email"></span>
+                </div>
+
+                <div class="campo">
+                    <label class="checkbox">
+                        <input type="checkbox" id="inp-consentimento">
+                        <span>Concordo com o uso dos meus dados para realizar este agendamento</span>
+                    </label>
+                    <span class="campo__erro" id="erro-consentimento"></span>
                 </div>
             </form>
-
         </section>
+
+        <nav class="nav-etapa">
+            <button onclick="voltarEtapa()">Voltar</button>
+            <button onclick="avancarEtapa()">Continuar</button>
+        </nav>
+
     </main>
     <footer>
-        <p>&copy Site de agendamento de serviços. Todos os diretos reservados</p>
-        <p>Para conhecer outros serviços <a href="../MyProjects/site-html/sobremim.html" target="_blank">clique aqui</a></p>
+        <p>&copy Site de agendamento de serviços. Todos os diretos reservados.</p>
+        <p>Para conhecer outros serviços <a href="../MyProjects/site-html/sobremim.html" target="_blank">clique aqui.</a></p>
     </footer>
 
     <script src="js/script.js"></script>

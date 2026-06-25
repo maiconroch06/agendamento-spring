@@ -5,13 +5,17 @@ body {
     color: #f1efe8;
     line-height: 1.5; /* Oq isso faz? */
     -webkit-font-smoothing: antialiased; /* Oq isso faz? */
+    padding-bottom: 80px;
 }
 
+h1 {
+    font-size: 1.5rem;
+}
 .topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 20px;
+    padding: 8px 20px;
     border-bottom: 0.5px solid #38362f;
     position: sticky;
     top: 0;
@@ -22,7 +26,7 @@ body {
 .topbar__brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .topbar__nome {
@@ -36,15 +40,83 @@ body {
     object-fit: contain;
 }
 
+/* ETAPA (stepper) */
+.etapa {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+}
+
+.etapa__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    font-size: 12px;
+    color: #888780;
+}
+
+/* Linha conectando os itens */
+.etapa__item::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: -50%;
+    width: 100%;
+    height: 1px;
+    background: #4a473f;
+    z-index: -1;
+}
+
+.etapa__item:first-child::before {
+    content: none;
+}
+
+.etapa__ciclo {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #232220;
+    border: 1px solid #4a473f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #888780;
+}
+
+/* Etapa ativa */
+.etapa__item.ativo .etapa__ciclo {
+    background: #f1efe8;
+    color: #161513;
+    border-color: #f1efe8;
+}
+
+.etapa__item.ativo .etapa__label {
+    color: #f1efe8;
+    font-weight: 500;
+}
+
+/* Etapa concluída */
+.etapa__item.concluido .etapa__ciclo {
+    background: #085041;
+    color: #9fe1cb;
+    border-color: #0f6e56;
+}
+
 .conteiner {
-    max-width: 650px;
+    max-width: 900px;
     margin: 0 auto; /* Isso deixou centralizado  */
     padding: 24px 16px 100px;
 }
 
 .sequencia {
     display: grid;
-    grid-template-columns: repeat(3, 200px); /* sequencia "formato de tabela"*/
+    grid-template-columns: repeat(4, 200px); /* sequencia "formato de tabela"*/
     gap: 20px;
     padding: 15px 5px;
     /*display: flex; /* organiza os dados em sequencia "lateral" */
@@ -58,8 +130,8 @@ input[type="radio"] {
 }
 
 .card {
-    width: 160px;
-    height: 180px;
+    width: 130px;
+    height: 150px;
     flex-shrink: 0; /* impede o card de encolher */
 
     display: flex;
@@ -83,12 +155,12 @@ input[type="radio"] {
 
 .titulo {
     font-weight: 500;
-    font-size: 15px;
+    font-size: 1x;
 }
 
 .card img { /* As imagens tem que manter uma proporção fixa - 3-4*/
-    width: 80px;
-    height: 120px; /* Define a altura da imagem*/
+    width: 90px;
+    height: 100px; /* Define a altura da imagem*/
     object-fit: contain; /* mantém a proporção */
     border-radius: 8px;
 }
@@ -113,4 +185,118 @@ input[type="radio"]:checked + .card {
   font-weight: 500;
   cursor: pointer;
   transition: transform 0.08s ease, background 0.12s ease;
+}
+
+/* FORMULARIO PARA INSERIR OS DADOS DO USUARIO*/
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campo label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #888780;
+}
+
+.campo input[type="text"],
+.campo input[type="tel"],
+.campo input[type="email"] {
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1px solid #4a473f;
+    background: #232220;
+    color: #f1efe8;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.campo input:focus {
+    outline: none;
+    border-color: #0f6e56;
+    box-shadow: 0 0 0 3px #04342c;
+}
+
+.campo input.invalido {
+    border-color: #993c1d;
+}
+
+.campo__erro {
+    font-size: 12px;
+    color: #f0997b;
+    min-height: 14px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #888780;
+    cursor: pointer;
+}
+
+.checkbox input {
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    accent-color: #0f6e56;
+    flex-shrink: 0;
+}
+
+/*   BOTOES DE NAVEGAÇÃO   */
+.nav-etapa {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 160px;
+    background: #232220;
+    border-top: 0.5px solid #38362f;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.nav-etapa button {
+    flex: 1;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid #4a473f;
+    background: transparent;
+    color: #f1efe8;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.12s ease, transform 0.08s ease;
+}
+
+.nav-etapa button:hover {
+    background: #464441;
+}
+
+.nav-etapa button:active {
+    transform: scale(0.98);
+}
+
+/* Botão continuar (último filho) com destaque */
+.nav-etapa button:last-child {
+    background: #f1efe8;
+    color: #161513;
+    border-color: #f1efe8;
+}
+
+.nav-etapa button:last-child:hover {
+    opacity: 0.9;
 }

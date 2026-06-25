@@ -77,6 +77,119 @@ function carregarProfissionais() {
 carregarServicos();
 carregarProfissionais();
 
-function atualizarEtapa() {
+/* ============================================================
+   ATUALIZAR VISUAL DA ETAPA
+   ============================================================ */
 
+function atualizarEtapa() {
+    const itens = els.etapa.querySelectorAll(".etapa__item");
+
+    itens.forEach((item, index) => {
+        const numeroEtapa = index + 1;
+        item.classList.remove("ativo", "concluido");
+
+        if (numeroEtapa === state.currentStep) {
+            item.classList.add("ativo");
+        } else if (numeroEtapa < state.currentStep) {
+            item.classList.add("concluido");
+        }
+    });
+}
+
+/* ============================================================
+   AVANÇAR / VOLTAR ETAPA
+   ============================================================ */
+
+function avancarEtapa() {
+    if (state.currentStep < 4) {
+        state.currentStep++;
+        atualizarEtapa();
+    }
+}
+
+function voltarEtapa() {
+    if (state.currentStep > 1) {
+        state.currentStep--;
+        atualizarEtapa();
+    }
+}
+
+/* ============================================================
+   ELEMENTOS DO FORMULÁRIO
+   ============================================================ */
+
+const form = {
+    nome: document.getElementById("inp-nome"),
+    tel: document.getElementById("inp-tel"),
+    email: document.getElementById("inp-email"),
+    consentimento: document.getElementById("inp-consentimento"),
+    erroNome: document.getElementById("erro-nome"),
+    erroTel: document.getElementById("erro-tel"),
+    erroEmail: document.getElementById("erro-email"),
+    erroConsentimento: document.getElementById("erro-consentimento"),
+};
+
+/* ============================================================
+   MÁSCARA DE TELEFONE
+   ============================================================ */
+
+form.tel.addEventListener("input", () => {
+    let digitos = form.tel.value.replace(/\D/g, "").slice(0, 11);
+
+    if (digitos.length > 6) {
+        digitos = digitos.replace(/^(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
+    } else if (digitos.length > 2) {
+        digitos = digitos.replace(/^(\d{2})(\d{0,5})/, "($1) $2");
+    } else {
+        digitos = digitos.replace(/^(\d{0,2})/, "($1");
+    }
+
+    form.tel.value = digitos;
+});
+
+/* ============================================================
+   VALIDAÇÃO
+   ============================================================ */
+
+function limparErro(input, erroEl) {
+    input.classList.remove("invalido");
+    erroEl.textContent = "";
+}
+
+function definirErro(input, erroEl, mensagem) {
+    input.classList.add("invalido");
+    erroEl.textContent = mensagem;
+}
+
+function validarFormulario() {
+    let valido = true;
+
+    limparErro(form.nome, form.erroNome);
+    limparErro(form.tel, form.erroTel);
+    limparErro(form.email, form.erroEmail);
+    form.erroConsentimento.textContent = "";
+
+    if (form.nome.value.trim().length < 3) {
+        definirErro(form.nome, form.erroNome, "Informe seu nome completo");
+        valido = false;
+    }
+
+    const digitos = form.tel.value.replace(/\D/g, "");
+    if (digitos.length < 10) {
+        definirErro(form.tel, form.erroTel, "Informe um telefone válido com DDD");
+        valido = false;
+    }
+
+    const emailValor = form.email.value.trim();
+    if (emailValor && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValor)) {
+        definirErro(form.email, form.erroEmail, "Informe um e-mail válido");
+        valido = false;
+    }
+
+    if (!form.consentimento.checked) {
+        form.erroConsentimento.textContent = "É necessário concordar para continuar";
+        valido = false;
+    }
+
+    return valido;
 }
