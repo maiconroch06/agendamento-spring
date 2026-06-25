@@ -1,14 +1,24 @@
+/*const SERVICOS = [
+    { id: "infantil", name: "Corte Infantil", duration: 30, price: 20, icon: "../assets/images/cortes/corte-infantil.webp", alt: "corte-infantil" },
+    { id: "social", name: "Corte Social", duration: 30, price: 18, icon: "../assets/images/cortes/corte-social.png", alt: "corte-social" },
+    { id: "social&barba", name: "Social & Barba", duration: 50, price: 30, icon: "../assets/images/cortes/corte-social&barba.png", alt: "corte-social&barba.png" },
+    { id: "degrade", name: "Degradê", duration: 40, price: 22, icon: "../assets/images/cortes/corte-degradê.png", alt: "corte-degradê.png" },
+    { id: "degrade&barba", name: "Degradê & Barba", duration: 60, price: 30, icon: "../assets/images/cortes/corte-degradê&barba.png", alt: "corte-degradê&barba.png" },
+    { id: "militar", name: "Corte Militar", duration: 20, price: 15, icon: "../assets/images/cortes/corte-militar.png", alt: "corte-militar.png" },
+    { id: "barba", name: "Barba", duration: 25, price: 15, icon: "../assets/images/cortes/corte-barba.png", alt: "corte-barba" },
+    { id: "sobrancelha", name: "Sobrancelha", duration: 5, price: 15, icon: "../assets/images/cortes/sombrancelha.png", alt: "sombrancelha" },
+    ];*/
+    
 const SERVICOS = [
-  { id: "infantil", name: "Corte Infantil", duration: 30, price: 20, icon: "../assets/images/cortes/corte-infantil.webp", alt: "corte-infantil" },
-  { id: "social", name: "Corte Social", duration: 30, price: 18, icon: "../assets/images/cortes/corte-social.png", alt: "corte-social" },
-  { id: "social&barba", name: "Social & Barba", duration: 50, price: 30, icon: "../assets/images/cortes/corte-social&barba.png", alt: "corte-social&barba.png" },
-  { id: "degrade", name: "Degradê", duration: 40, price: 22, icon: "../assets/images/cortes/corte-degradê.png", alt: "corte-degradê.png" },
-  { id: "degrade&barba", name: "Degradê & Barba", duration: 60, price: 30, icon: "../assets/images/cortes/corte-degradê&barba.png", alt: "corte-degradê&barba.png" },
-  { id: "militar", name: "Corte Militar", duration: 20, price: 15, icon: "../assets/images/cortes/corte-militar.png", alt: "corte-militar.png" },
-  { id: "barba", name: "Barba", duration: 25, price: 15, icon: "../assets/images/cortes/corte-barba.png", alt: "corte-barba" },
-  { id: "sobrancelha", name: "Sobrancelha", duration: 5, price: 15, icon: "../assets/images/cortes/sombrancelha.png", alt: "sombrancelha" },
+    { id: "infantil", name: "Corte Infantil", duration: 30, price: 20, icon: "../assets/images/cortes/corte-infantil.jpeg", alt: "corte-infantil" },
+    { id: "social", name: "Corte Social", duration: 30, price: 18, icon: "../assets/images/cortes/corte-social.jpeg", alt: "corte-social" },
+    { id: "social&barba", name: "Social & Barba", duration: 50, price: 30, icon: "../assets/images/cortes/corte-social&barba.jpeg", alt: "corte-social&barba" },
+    { id: "degrade", name: "Degradê", duration: 40, price: 22, icon: "../assets/images/cortes/corte-degrade.jpeg", alt: "corte-degradê" },
+    { id: "degrade&barba", name: "Degradê & Barba", duration: 60, price: 30, icon: "../assets/images/cortes/corte-degradê&barba.jpeg", alt: "corte-degradê&barba" },
+    { id: "militar", name: "Corte Militar", duration: 20, price: 15, icon: "../assets/images/cortes/corte-militar.jpeg", alt: "corte-militar" },
+    { id: "barba", name: "Barba", duration: 25, price: 15, icon: "../assets/images/cortes/corte-barba.jpeg", alt: "corte-barba" },
+    { id: "sobrancelha", name: "Sobrancelha", duration: 5, price: 15, icon: "../assets/images/cortes/sombrancelha.png", alt: "sombrancelha" },        
 ];
-
 const PROFISSIONAIS = [
   { id: "any", name: "Sem preferência", description: "Qualquer profissional disponível", icon: "", alt: "" },
   { id: "maicon", name: "Maicon", description: "Barbeiro sênior", icon: "../assets/images/funcionarios/maicon.jpg", alt: "maicon" },
@@ -189,7 +199,7 @@ function validarFormulario() {
     if (!form.consentimento.checked) {
         form.erroConsentimento.textContent = "É necessário concordar para continuar";
         valido = false;
-    }
 
+    }
     return valido;
 }
