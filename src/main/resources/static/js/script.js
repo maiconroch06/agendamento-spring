@@ -26,11 +26,63 @@ const PROFISSIONAIS = [
   { id: "anny", name: "Anny", description: "Especialista em sobrancelhas", icon: "", alt: "" },
 ];
 
+/* ======================================================
+   DIAS DA SEMANA
+====================================================== */
+
+const NOMES_DIAS = [
+  "Dom",
+  "Seg",
+  "Ter",
+  "Qua",
+  "Qui",
+  "Sex",
+  "Sab"
+];
+
+/* ======================================================
+   HORÁRIOS DISPONÍVEIS
+====================================================== */
+
+const TODOS_HORARIOS = [
+  "09:00",
+  "09:30",
+  "10:00",
+  "10:30",
+  "11:00",
+  "13:00",
+  "13:30",
+  "14:00",
+  "14:30",
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+  "17:00"
+];
+
+/* ======================================================
+   HORÁRIOS OCUPADOS
+   índice 0-6 = próximos 7 dias
+====================================================== */
+
+const HORARIOS_OCUPADOS = {
+  0: ["09:00", "09:30", "14:00"],
+  1: ["10:00", "10:30"],
+  2: [],
+  3: ["13:00", "13:30"],
+  4: ["15:00", "15:30"],
+  5: ["14:00"],
+  6: TODOS_HORARIOS
+};
+
 /* ============================================================
    ESTADO
    ============================================================ */
 
-const state = {
+const estado = {
+  diaSelecionado: null,
+  horarioSelecionado: null,
   currentStep: 1,
   service: null,
   profissional: null,
@@ -45,7 +97,9 @@ const state = {
 const els = {
   etapa: document.getElementById("etapa"),
   listaServico: document.getElementById("lista-servico"),
-  listaProfissionais: document.getElementById("lista-profissionais")
+  listaProfissionais: document.getElementById("lista-profissionais"),
+  abasDias: document.getElementById("abas-dias"),
+  gradeHorarios: document.getElementById("grade-horarios")
 };
 
 /* ============================================================
@@ -64,7 +118,7 @@ function carregarServicos() {
         </span>
         <span class="dados">
             <span>${service.price} min</span>
-            <span>R$${service.price.toFixed(2).replace(".", ",")}</spap>
+            <span>R$${service.price.toFixed(2).replace(".", ",")}</span>
         </span>
     </label>
   `).join("");
@@ -98,9 +152,9 @@ function atualizarEtapa() {
         const numeroEtapa = index + 1;
         item.classList.remove("ativo", "concluido");
 
-        if (numeroEtapa === state.currentStep) {
+        if (numeroEtapa === estado.currentStep) {
             item.classList.add("ativo");
-        } else if (numeroEtapa < state.currentStep) {
+        } else if (numeroEtapa < estado.currentStep) {
             item.classList.add("concluido");
         }
     });
@@ -111,15 +165,15 @@ function atualizarEtapa() {
    ============================================================ */
 
 function avancarEtapa() {
-    if (state.currentStep < 4) {
-        state.currentStep++;
+    if (estado.currentStep < 4) {
+        estado.currentStep++;
         atualizarEtapa();
     }
 }
 
 function voltarEtapa() {
-    if (state.currentStep > 1) {
-        state.currentStep--;
+    if (estado.currentStep > 1) {
+        estado.currentStep--;
         atualizarEtapa();
     }
 }
@@ -203,3 +257,95 @@ function validarFormulario() {
     }
     return valido;
 }
+
+/* ======================================================
+   GERAR PRÓXIMOS 7 DIAS
+====================================================== */
+
+function obterProximosDias() {
+  const dias = [];
+  const hoje = new Date();
+
+  for (let i = 0; i < 7; i++) {
+    const data = new Date();
+    data.setDate(hoje.getDate() + i);
+    dias.push(data);
+  }
+
+  return dias;
+}
+
+/* ======================================================
+   RENDERIZAR DIAS
+====================================================== */
+
+function renderizarDias() {
+  const dias = obterProximosDias();
+  els.abasDias.innerHTML = dias.map((data, indice) => {
+
+    const fechado =
+      HORARIOS_OCUPADOS[indice]?.length === TODOS_HORARIOS.length;
+
+    return `
+      <button
+        class="dia ${estado.diaSelecionado === indice ? "ativo" : ""}"
+        data-dia="${indice}"
+        ${fechado ? "disabled" : ""}
+      >
+        <span>${NOMES_DIAS[data.getDay()]}</span>
+        <strong>${data.getDate()}</strong>
+      </button>
+    `;
+
+  }).join("");
+
+  document.querySelectorAll("[data-dia]").forEach(botao => {
+    botao.addEventListener("click", () => {
+      estado.diaSelecionado = Number(botao.dataset.dia);
+      estado.horarioSelecionado = null;
+      renderizarDias();
+      renderizarHorarios();
+    });
+  });
+}
+
+/* ======================================================
+   RENDERIZAR HORÁRIOS
+====================================================== */
+
+function renderizarHorarios() {
+  if (estado.diaSelecionado === null) {
+    els.gradeHorarios.innerHTML = `<p class="mensagem">Escolha um dia para visualizar os horários.</p>`;
+    return;
+  }
+
+  const ocupados = HORARIOS_OCUPADOS[estado.diaSelecionado] || [];
+
+  els.gradeHorarios.innerHTML = TODOS_HORARIOS.map(horario => {
+    const ocupado = ocupados.includes(horario);
+    return `
+      <button
+        class="horario ${
+          estado.horarioSelecionado === horario ? "ativo" : ""
+        }"
+        data-horario="${horario}"
+        ${ocupado ? "disabled" : ""}
+      >
+        ${horario}
+      </button>
+    `;
+  }).join("");
+
+  document
+    .querySelectorAll("[data-horario]:not(:disabled)")
+    .forEach(botao => {
+      botao.addEventListener("click", () => {
+        estado.horarioSelecionado = botao.dataset.horario;
+        renderizarHorarios();
+        console.log("Horário selecionado:", estado.horarioSelecionado);
+      });
+    });
+}
+
+renderizarDias();
+renderizarHorarios();

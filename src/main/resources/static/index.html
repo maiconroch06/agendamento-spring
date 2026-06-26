@@ -45,19 +45,31 @@
         </ol>
 
         <!-- Cortes de Cabelo -->
-        <h1>Escolha o serviço:</h1>
-        <section class="sequencia" id="lista-servico"></section>
+        <section>
+            <h1>Escolha o serviço:</h1>
+            <p class="etapa__subtitulo">Selecione o serviço que você deseja agendar</p>
+            <div class="sequencia" id="lista-servico"></div>
+        </section>
 
 
         <!-- Seleção do Profissional -->
-        <h1>Escolha o profissional:</h1>
-        <section class="sequencia" id="lista-profissionais"></section>
-
-        <img src="" alt="">
-
-        <!-- Coleta do Nome do Cliente -->
-        <h1>Confirme seu agendamento:</h1>
         <section>
+            <h1>Escolha o profissional:</h1>
+            <p class="etapa__subtitulo">Selecione quem irá realizar o seu atendimento</p>
+            <div class="sequencia" id="lista-profissionais"></div>
+        </section>
+        
+        <section class="agenda">
+            <h1 class="etapa__titulo">Escolha um horário</h1>
+            <p class="etapa__subtitulo">Selecione um dia e depois escolha um horário disponível.</p>
+            <div class="abas-dias" id="abas-dias"></div>
+            <div class="grade-horarios" id="grade-horarios"></div>
+        </section>
+        
+        <!-- Coleta do Nome do Cliente -->
+        <section>
+            <h1 class=""etapa__titulo>Confirme seu agendamento:</h1>
+            <p class="etapa__subtitulo">Revise os dados e informe seus dados de contato</p>
             <form class="formulario" id="formulario" novalidate>
                 <div class="campo">
                     <label for="inp-nome">Nome completo</label>

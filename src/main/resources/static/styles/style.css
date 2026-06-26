@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;;
+    font-family: Arial, Helvetica, sans-serif;
     background: #161513;
     color: #f1efe8;
     line-height: 1.5; /* Oq isso faz? */
@@ -109,14 +109,14 @@ h1 {
 }
 
 .conteiner {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto; /* Isso deixou centralizado  */
     padding: 24px 16px 100px;
 }
 
 .sequencia {
     display: grid;
-    grid-template-columns: repeat(4, 200px); /* sequencia "formato de tabela"*/
+    grid-template-columns: repeat(4, 180px); /* sequencia "formato de tabela"*/
     gap: 20px;
     padding: 15px 5px;
     /*display: flex; /* organiza os dados em sequencia "lateral" */
@@ -168,6 +168,120 @@ input[type="radio"] {
 input[type="radio"]:checked + .card {
     border: 2px solid #ccc;
     transform: scale(1.05);
+}
+
+:root {
+  --cor-fundo: #f5f5f5;
+  --cor-card: #ffffff;
+  --cor-borda: #dddddd;
+  --cor-texto: #222222;
+  --cor-texto-suave: #666666;
+
+  --cor-primaria: #111111;
+  --cor-primaria-texto: #ffffff;
+
+  --cor-selecionado: #dff5ec;
+  --cor-selecionado-texto: #0a5c46;
+
+  --radius: 12px;
+}/*
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 24px;
+}
+*/
+
+
+.etapa__subtitulo {
+  color: var(--cor-texto-suave);
+  margin-bottom: 0px;
+  padding-top: 0px;
+}
+
+/* DIAS */
+
+.abas-dias {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-bottom: 24px;
+}
+
+.dia {
+  min-width: 70px;
+  padding: 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--radius);
+  background: var(--cor-card);
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dia strong {
+  font-size: 18px;
+}
+
+.dia.ativo {
+  background: var(--cor-primaria);
+  color: var(--cor-primaria-texto);
+  border-color: var(--cor-primaria);
+}
+
+.dia:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* HORÁRIOS */
+
+.grade-horarios {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 12px;
+}
+
+.horario {
+  padding: 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--radius);
+  background: var(--cor-card);
+  cursor: pointer;
+}
+
+.horario.ativo {
+  background: var(--cor-selecionado);
+  border-color: #0f6e56;
+  color: var(--cor-selecionado-texto);
+  font-weight: bold;
+}
+
+.horario:disabled {
+  opacity: 0.35;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.mensagem {
+  text-align: center;
+  color: var(--cor-texto-suave);
+  padding: 20px;
+  grid-column: 1 / -1;
 }
 
 .btn {
