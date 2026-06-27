@@ -21,9 +21,8 @@ const SERVICOS = [
 ];
 const PROFISSIONAIS = [
   { id: "any", name: "Sem preferência", description: "Qualquer profissional disponível", icon: "", alt: "" },
-  { id: "maicon", name: "Maicon", description: "Barbeiro sênior", icon: "../assets/images/funcionarios/maicon.jpg", alt: "maicon" },
-  { id: "maik", name: "Maik", description: "Barbeiro", icon: "../assets/images/funcionarios/maik.jpg", alt: "maik" },
-  { id: "anny", name: "Anny", description: "Especialista em sobrancelhas", icon: "", alt: "" },
+  { id: "samuel", name: "Samuel", description: "Barbeiro sênior", icon: "../assets/images/funcionarios/maicon.jpg", alt: "maik" },
+  { id: "maik", name: "Maik", description: "Barbeiro", icon: "../assets/images/funcionarios/maik.png", alt: "maik" },
 ];
 
 /* ======================================================
