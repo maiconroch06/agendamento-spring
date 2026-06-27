@@ -185,9 +185,10 @@ h1 {
 
 .sequencia {
     display: grid;
-    grid-template-columns: repeat(4, 160px);
-    gap: 16px;
-    padding: 4px 2px;
+    grid-template-columns: repeat(4, 180px); /* sequencia "formato de tabela"*/
+    gap: 18px;
+    padding: 15px 5px;
+    display: flex; /* organiza os dados em sequencia "lateral" */
     overflow-x: auto;
     overflow-y: hidden;
 }
