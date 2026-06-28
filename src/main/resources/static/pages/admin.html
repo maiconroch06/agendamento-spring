@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo</title>
+    <link rel="stylesheet" href="../styles/admin.css">
+</head>
+<body>
+
+<!-- ============================================================
+     TELA 1: AUTENTICAÇÃO (Login / Cadastro)
+     ============================================================ -->
+<div id="tela-auth" class="tela ativa">
+    <div class="auth-container">
+        <div class="auth-logo">
+            <div class="auth-logo__icone">B</div>
+            <span class="auth-logo__nome">BarberSystem</span>
+        </div>
+
+        <!-- Abas -->
+        <div class="auth-abas">
+            <button class="auth-aba ativa" data-aba="login">Entrar</button>
+            <button class="auth-aba" data-aba="cadastro">Criar conta</button>
+        </div>
+
+        <!-- Login -->
+        <form id="form-login" class="form-auth" novalidate>
+            <div class="campo">
+                <label for="login-usuario">Usuário ou e-mail</label>
+                <input type="text" id="login-usuario" placeholder="Digite seu usuário ou e-mail" autocomplete="off">
+                <span class="campo__erro" id="erro-login-usuario"></span>
+            </div>
+            <div class="campo">
+                <label for="login-senha">Senha</label>
+                <input type="password" id="login-senha" placeholder="Digite sua senha">
+                <span class="campo__erro" id="erro-login-senha"></span>
+            </div>
+            <button type="button" class="btn-primario" onclick="fazerLogin()">Entrar</button>
+        </form>
+
+        <!-- Cadastro -->
+        <form id="form-cadastro" class="form-auth" novalidate hidden>
+            <div class="campo">
+                <label for="cad-nome">Nome de usuário</label>
+                <input type="text" id="cad-nome" placeholder="Escolha um nome de usuário" autocomplete="off">
+                <span class="campo__erro" id="erro-cad-nome"></span>
+            </div>
+            <div class="campo">
+                <label for="cad-email">E-mail</label>
+                <input type="email" id="cad-email" placeholder="seuemail@exemplo.com" autocomplete="off">
+                <span class="campo__erro" id="erro-cad-email"></span>
+            </div>
+            <div class="campo">
+                <label for="cad-senha">Senha</label>
+                <input type="password" id="cad-senha" placeholder="Mínimo 6 caracteres">
+                <span class="campo__erro" id="erro-cad-senha"></span>
+            </div>
+            <div class="campo">
+                <label for="cad-confirmar">Confirmar senha</label>
+                <input type="password" id="cad-confirmar" placeholder="Repita a senha">
+                <span class="campo__erro" id="erro-cad-confirmar"></span>
+            </div>
+            <button type="button" class="btn-primario" onclick="fazerCadastro()">Criar conta</button>
+        </form>
+    </div>
+</div>
+
+<!-- ============================================================
+     TELA 2: TIPO DE USUÁRIO
+     ============================================================ -->
+<div id="tela-tipo" class="tela" hidden>
+    <div class="auth-container">
+        <h1 class="tela__titulo">Bem-vindo, <span id="nome-boas-vindas"></span>!</h1>
+        <p class="tela__subtitulo">Como você vai usar o sistema?</p>
+
+        <div class="tipo-grid">
+            <button class="tipo-card" onclick="escolherTipo('admin')">
+                <div class="tipo-card__icone">🏢</div>
+                <strong>Sou administrador</strong>
+                <span>Cadastro e gerencio uma empresa</span>
+            </button>
+            <button class="tipo-card" onclick="escolherTipo('funcionario')">
+                <div class="tipo-card__icone">✂️</div>
+                <strong>Sou funcionário</strong>
+                <span>Entro com o código da minha empresa</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     TELA 3: DADOS DA EMPRESA
+     ============================================================ -->
+<div id="tela-empresa" class="tela-centralizada" hidden>
+    <div class="auth-container auth-container--largo">
+        <div class="passo-indicador">
+            <span class="passo ativo">1. Empresa</span>
+            <span class="passo-linha"></span>
+            <span class="passo">2. Serviços</span>
+            <span class="passo-linha"></span>
+            <span class="passo">3. Profissionais</span>
+        </div>
+
+        <h1 class="tela__titulo">Dados da empresa</h1>
+        <p class="tela__subtitulo">Preencha as informações do seu estabelecimento</p>
+
+        <form id="form-empresa" class="form-auth" novalidate>
+            <div class="campo">
+                <label for="emp-nome">Nome da empresa</label>
+                <input type="text" id="emp-nome" placeholder="Ex: Barbearia do Zé" autocomplete="off">
+                <span class="campo__erro" id="erro-emp-nome"></span>
+            </div>
+            <div class="campo">
+                <label for="emp-categoria">Categoria</label>
+                <select id="emp-categoria">
+                    <option value="">Selecione uma categoria</option>
+                    <option value="barbearia">Barbearia</option>
+                    <option value="salao">Salão de beleza</option>
+                    <option value="estetica">Estética</option>
+                    <option value="clinica">Clínica</option>
+                    <option value="outro">Outro</option>
+                </select>
+                <span class="campo__erro" id="erro-emp-categoria"></span>
+            </div>
+            <div class="campo">
+                <label for="emp-cnpj">CNPJ</label>
+                <input type="text" id="emp-cnpj" placeholder="00.000.000/0000-00" maxlength="18" autocomplete="off">
+                <span class="campo__erro" id="erro-emp-cnpj"></span>
+            </div>
+            <div class="campo">
+                <label>Horário de expediente</label>
+                <div class="expediente-grid">
+                    <div class="campo">
+                        <label for="emp-abertura">Abertura</label>
+                        <input type="time" id="emp-abertura" value="09:00">
+                    </div>
+                    <div class="campo">
+                        <label for="emp-fechamento">Fechamento</label>
+                        <input type="time" id="emp-fechamento" value="18:00">
+                    </div>
+                </div>
+            </div>
+            <div class="campo">
+                <label>Dias de funcionamento</label>
+                <div class="dias-semana" id="dias-semana">
+                    <button type="button" class="dia-btn ativo" data-dia="seg">Seg</button>
+                    <button type="button" class="dia-btn ativo" data-dia="ter">Ter</button>
+                    <button type="button" class="dia-btn ativo" data-dia="qua">Qua</button>
+                    <button type="button" class="dia-btn ativo" data-dia="qui">Qui</button>
+                    <button type="button" class="dia-btn ativo" data-dia="sex">Sex</button>
+                    <button type="button" class="dia-btn" data-dia="sab">Sáb</button>
+                    <button type="button" class="dia-btn" data-dia="dom">Dom</button>
+                </div>
+            </div>
+            <button type="button" class="btn-primario" onclick="salvarEmpresa()">Próximo →</button>
+        </form>
+    </div>
+</div>
+
+<!-- ============================================================
+     TELA 4: SERVIÇOS
+     ============================================================ -->
+<div id="tela-servicos" class="tela-centralizada" hidden>
+    <div class="auth-container auth-container--largo">
+        <div class="passo-indicador">
+            <span class="passo concluido">1. Empresa</span>
+            <span class="passo-linha"></span>
+            <span class="passo ativo">2. Serviços</span>
+            <span class="passo-linha"></span>
+            <span class="passo">3. Profissionais</span>
+        </div>
+
+        <h1 class="tela__titulo">Serviços oferecidos</h1>
+        <p class="tela__subtitulo">Adicione os serviços que sua empresa realiza</p>
+
+        <form id="form-servico" class="form-inline" novalidate>
+            <div class="form-inline__campos">
+                <div class="campo">
+                    <label for="srv-nome">Nome do serviço</label>
+                    <input type="text" id="srv-nome" placeholder="Ex: Corte degradê" autocomplete="off">
+                </div>
+                <div class="campo">
+                    <label for="srv-preco">Preço (R$)</label>
+                    <input type="number" id="srv-preco" placeholder="0,00" min="0" step="0.01">
+                </div>
+                <div class="campo">
+                    <label for="srv-tempo">Duração (min)</label>
+                    <input type="number" id="srv-tempo" placeholder="30" min="5" step="5">
+                </div>
+                <div class="campo">
+                    <label for="srv-foto">Imagem (3x4)</label>
+                    <input type="file" id="srv-foto" accept="image/*">
+                </div>
+            </div>
+            <button type="button" class="btn-secundario" onclick="adicionarServico()">+ Adicionar serviço</button>
+        </form>
+
+        <div class="cards-lista" id="lista-cards-servicos">
+            <p class="lista-vazia" id="vazia-servicos">Nenhum serviço adicionado ainda.</p>
+        </div>
+
+        <div class="nav-duplo">
+            <button class="btn-ghost" onclick="irParaTela('tela-empresa')">← Voltar</button>
+            <button class="btn-primario" onclick="salvarServicos()">Próximo →</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     TELA 5: PROFISSIONAIS
+     ============================================================ -->
+<div id="tela-profissionais" class="tela-centralizada" hidden>
+    <div class="auth-container auth-container--largo">
+        <div class="passo-indicador">
+            <span class="passo concluido">1. Empresa</span>
+            <span class="passo-linha"></span>
+            <span class="passo concluido">2. Serviços</span>
+            <span class="passo-linha"></span>
+            <span class="passo ativo">3. Profissionais</span>
+        </div>
+
+        <h1 class="tela__titulo">Profissionais</h1>
+        <p class="tela__subtitulo">Adicione os profissionais que trabalham na empresa</p>
+
+        <form id="form-profissional" class="form-inline" novalidate>
+            <div class="form-inline__campos">
+                <div class="campo">
+                    <label for="pro-nome">Nome completo</label>
+                    <input type="text" id="pro-nome" placeholder="Nome do profissional" autocomplete="off">
+                </div>
+                <div class="campo">
+                    <label for="pro-cargo">Cargo / Especialidade</label>
+                    <input type="text" id="pro-cargo" placeholder="Ex: Barbeiro sênior" autocomplete="off">
+                </div>
+                <div class="campo">
+                    <label for="pro-foto">Foto (3x4)</label>
+                    <input type="file" id="pro-foto" accept="image/*">
+                </div>
+            </div>
+            <button type="button" class="btn-secundario" onclick="adicionarProfissional()">+ Adicionar profissional</button>
+        </form>
+
+        <div class="cards-lista" id="lista-cards-profissionais">
+            <p class="lista-vazia" id="vazia-profissionais">Nenhum profissional adicionado ainda.</p>
+        </div>
+
+        <div class="nav-duplo">
+            <button class="btn-ghost" onclick="irParaTela('tela-servicos')">← Voltar</button>
+            <button class="btn-primario" onclick="salvarProfissionais()">Concluir cadastro →</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     TELA 6: PAINEL DO ADMINISTRADOR
+     ============================================================ -->
+<div id="tela-painel" class="tela" hidden>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar__topo">
+            <div class="sidebar__logo">B</div>
+            <span class="sidebar__nome" id="sidebar-nome-empresa">Empresa</span>
+        </div>
+        <nav class="sidebar__nav">
+            <button class="sidebar__item ativo" onclick="mudarAba('perfil')">
+                <span>🏢</span> Perfil da empresa
+            </button>
+            <button class="sidebar__item" onclick="mudarAba('servicos')">
+                <span>✂️</span> Serviços
+            </button>
+            <button class="sidebar__item" onclick="mudarAba('profissionais')">
+                <span>👤</span> Profissionais
+            </button>
+            <button class="sidebar__item" onclick="mudarAba('financeiro')">
+                <span>💰</span> Financeiro
+            </button>
+        </nav>
+        <button class="sidebar__sair" onclick="sair()">Sair</button>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="painel-main">
+
+        <!-- ABA: PERFIL -->
+        <section id="aba-perfil" class="aba ativa">
+            <div class="painel-cabecalho">
+                <h1>Perfil da empresa</h1>
+                <button class="btn-secundario" onclick="editarEmpresa()">Editar dados</button>
+            </div>
+
+            <div class="perfil-grid">
+                <div class="info-card">
+                    <div class="info-card__rotulo">Nome</div>
+                    <div class="info-card__valor" id="perfil-nome">—</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card__rotulo">Categoria</div>
+                    <div class="info-card__valor" id="perfil-categoria">—</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card__rotulo">CNPJ</div>
+                    <div class="info-card__valor" id="perfil-cnpj">—</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card__rotulo">Expediente</div>
+                    <div class="info-card__valor" id="perfil-expediente">—</div>
+                </div>
+                <div class="info-card info-card--full">
+                    <div class="info-card__rotulo">Dias de funcionamento</div>
+                    <div class="info-card__valor" id="perfil-dias">—</div>
+                </div>
+            </div>
+
+            <div class="codigo-acesso">
+                <div class="codigo-acesso__topo">
+                    <div>
+                        <h2>Código de acesso para funcionários</h2>
+                        <p>Compartilhe este código com seus funcionários para que entrem no sistema</p>
+                    </div>
+                    <button class="btn-ghost" onclick="gerarCodigo()">🔄 Gerar novo</button>
+                </div>
+                <div class="codigo-acesso__codigo" id="codigo-acesso">—</div>
+                <button class="btn-copiar" onclick="copiarCodigo()">Copiar código</button>
+            </div>
+        </section>
+
+        <!-- ABA: SERVIÇOS -->
+        <section id="aba-servicos" class="aba">
+            <div class="painel-cabecalho">
+                <h1>Serviços</h1>
+                <button class="btn-secundario" onclick="abrirFormServico()">+ Novo serviço</button>
+            </div>
+
+            <div id="form-servico-painel" hidden>
+                <form class="form-inline form-inline--painel" novalidate>
+                    <div class="form-inline__campos">
+                        <div class="campo">
+                            <label for="psrv-nome">Nome do serviço</label>
+                            <input type="text" id="psrv-nome" placeholder="Ex: Corte degradê" autocomplete="off">
+                        </div>
+                        <div class="campo">
+                            <label for="psrv-preco">Preço (R$)</label>
+                            <input type="number" id="psrv-preco" placeholder="0,00" min="0" step="0.01">
+                        </div>
+                        <div class="campo">
+                            <label for="psrv-tempo">Duração (min)</label>
+                            <input type="number" id="psrv-tempo" placeholder="30" min="5" step="5">
+                        </div>
+                        <div class="campo">
+                            <label for="psrv-foto">Imagem</label>
+                            <input type="file" id="psrv-foto" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="nav-duplo">
+                        <button type="button" class="btn-ghost" onclick="fecharFormServico()">Cancelar</button>
+                        <button type="button" class="btn-secundario" onclick="adicionarServicoPainel()">Salvar serviço</button>
+                    </div>
+                </form>
+                <hr class="divisor">
+            </div>
+
+            <div class="cards-lista" id="lista-servicos-painel">
+                <p class="lista-vazia">Nenhum serviço cadastrado.</p>
+            </div>
+        </section>
+
+        <!-- ABA: PROFISSIONAIS -->
+        <section id="aba-profissionais" class="aba">
+            <div class="painel-cabecalho">
+                <h1>Profissionais</h1>
+                <button class="btn-secundario" onclick="abrirFormProfissional()">+ Novo profissional</button>
+            </div>
+
+            <div id="form-profissional-painel" hidden>
+                <form class="form-inline form-inline--painel" novalidate>
+                    <div class="form-inline__campos">
+                        <div class="campo">
+                            <label for="ppro-nome">Nome completo</label>
+                            <input type="text" id="ppro-nome" placeholder="Nome do profissional" autocomplete="off">
+                        </div>
+                        <div class="campo">
+                            <label for="ppro-cargo">Cargo</label>
+                            <input type="text" id="ppro-cargo" placeholder="Ex: Barbeiro" autocomplete="off">
+                        </div>
+                        <div class="campo">
+                            <label for="ppro-foto">Foto</label>
+                            <input type="file" id="ppro-foto" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="nav-duplo">
+                        <button type="button" class="btn-ghost" onclick="fecharFormProfissional()">Cancelar</button>
+                        <button type="button" class="btn-secundario" onclick="adicionarProfissionalPainel()">Salvar profissional</button>
+                    </div>
+                </form>
+                <hr class="divisor">
+            </div>
+
+            <div class="cards-lista" id="lista-profissionais-painel">
+                <p class="lista-vazia">Nenhum profissional cadastrado.</p>
+            </div>
+        </section>
+
+        <!-- ABA: FINANCEIRO -->
+        <section id="aba-financeiro" class="aba">
+            <div class="painel-cabecalho">
+                <h1>Dashboard financeiro</h1>
+            </div>
+
+            <div class="financeiro-resumo">
+                <div class="financeiro-card">
+                    <div class="financeiro-card__rotulo">Receita do mês</div>
+                    <div class="financeiro-card__valor" id="fin-receita-mes">R$ 0,00</div>
+                </div>
+                <div class="financeiro-card">
+                    <div class="financeiro-card__rotulo">Total de cortes</div>
+                    <div class="financeiro-card__valor" id="fin-total-cortes">0</div>
+                </div>
+                <div class="financeiro-card">
+                    <div class="financeiro-card__rotulo">Ticket médio</div>
+                    <div class="financeiro-card__valor" id="fin-ticket-medio">R$ 0,00</div>
+                </div>
+                <div class="financeiro-card">
+                    <div class="financeiro-card__rotulo">Serviço mais realizado</div>
+                    <div class="financeiro-card__valor" id="fin-mais-realizado">—</div>
+                </div>
+            </div>
+
+            <div class="financeiro-tabela-wrapper">
+                <h2>Histórico de atendimentos</h2>
+                <table class="financeiro-tabela">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Cliente</th>
+                            <th>Serviço</th>
+                            <th>Profissional</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fin-tabela-corpo">
+                        <tr>
+                            <td colspan="5" class="lista-vazia">Nenhum atendimento registrado ainda.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- MODAL DE EDIÇÃO DA EMPRESA -->
+<div id="modal-empresa" class="modal" hidden>
+    <div class="modal__caixa">
+        <div class="modal__cabecalho">
+            <h2>Editar dados da empresa</h2>
+            <button class="modal__fechar" onclick="fecharModalEmpresa()">✕</button>
+        </div>
+        <form class="form-auth" novalidate>
+            <div class="campo">
+                <label for="edit-emp-nome">Nome da empresa</label>
+                <input type="text" id="edit-emp-nome" autocomplete="off">
+            </div>
+            <div class="campo">
+                <label for="edit-emp-categoria">Categoria</label>
+                <select id="edit-emp-categoria">
+                    <option value="barbearia">Barbearia</option>
+                    <option value="salao">Salão de beleza</option>
+                    <option value="estetica">Estética</option>
+                    <option value="clinica">Clínica</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="edit-emp-cnpj">CNPJ</label>
+                <input type="text" id="edit-emp-cnpj" maxlength="18" autocomplete="off">
+            </div>
+            <div class="expediente-grid">
+                <div class="campo">
+                    <label for="edit-emp-abertura">Abertura</label>
+                    <input type="time" id="edit-emp-abertura">
+                </div>
+                <div class="campo">
+                    <label for="edit-emp-fechamento">Fechamento</label>
+                    <input type="time" id="edit-emp-fechamento">
+                </div>
+            </div>
+            <button type="button" class="btn-primario" onclick="salvarEdicaoEmpresa()">Salvar alterações</button>
+        </form>
+    </div>
+</div>
+
+<div id="modal-overlay" class="modal-overlay" hidden onclick="fecharModalEmpresa()"></div>
+
+<div class="aviso" id="aviso"></div>
+
+<script src="../js/admin.js"></script>
+</body>
+</html>
