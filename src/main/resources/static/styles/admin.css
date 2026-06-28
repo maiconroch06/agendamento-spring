@@ -56,6 +56,16 @@ body {
     display: flex;
 }
 
+#tela-empresa.ativa,
+#tela-servicos.ativa,
+#tela-profissionais.ativa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px 16px;
+}
+
 .auth-container {
     width: 100%;
     max-width: 420px;
