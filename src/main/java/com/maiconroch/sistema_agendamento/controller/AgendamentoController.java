@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.maiconroch.sistema_agendamento.infrastructure.model.Agendamento;
+import com.maiconroch.sistema_agendamento.infrastructure.model.Agendamentos;
 import com.maiconroch.sistema_agendamento.service.AgendamentoService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,27 +27,27 @@ public class AgendamentoController {
 	private final AgendamentoService agendamentoService;
 	
 	@PostMapping
-	public ResponseEntity<Agendamento> salvarAgendamento(@RequestBody Agendamento agendamento) {
+	public ResponseEntity<Agendamentos> salvarAgendamento(@RequestBody Agendamentos agendamento) {
 		return ResponseEntity.ok().body(agendamentoService.salvarAgendamento(agendamento));
 	}
 	
 	@GetMapping("/dia")
-	public ResponseEntity<List<Agendamento>> buscarAgendamentosDia(@RequestParam LocalDate data) {
+	public ResponseEntity<List<Agendamentos>> buscarAgendamentosDia(@RequestParam LocalDate data) {
 		return ResponseEntity.ok().body(agendamentoService.consultarAgendamentosDia(data));
 	}
 	
 	@GetMapping("/cliente")
-	public ResponseEntity<List<Agendamento>> buscarAgendamentosClienteDia(@RequestParam String cliente, @RequestParam LocalDate data) {
+	public ResponseEntity<List<Agendamentos>> buscarAgendamentosClienteDia(@RequestParam String cliente, @RequestParam LocalDate data) {
 		return ResponseEntity.ok().body(agendamentoService.consultarAgendamentosClienteDia(cliente, data));
 	}
 
 	@GetMapping("/profissional")
-	public ResponseEntity<List<Agendamento>> buscarAgendamentosProfissionalDia(@RequestParam String profissional, @RequestParam LocalDate data) {
+	public ResponseEntity<List<Agendamentos>> buscarAgendamentosProfissionalDia(@RequestParam String profissional, @RequestParam LocalDate data) {
 		return ResponseEntity.ok().body(agendamentoService.consultarAgendamentosProfissionalDia(profissional, data));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Agendamento> atualizarAgendamento(@RequestBody Agendamento agendamento,
+	public ResponseEntity<Agendamentos> atualizarAgendamento(@RequestBody Agendamentos agendamento,
 															@RequestParam LocalDateTime dataHoraInicio,
 															@RequestParam LocalDateTime dataHoraFim) {
 		
