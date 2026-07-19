@@ -16,8 +16,9 @@ function escolherTipo(tipo) {
         
         window.location.href = "cadastroEmpresa.html"
     } else {
-        //
-        //window.location.href = "cadastroEmpresa.html"
-        mostrarAviso("Acesso de funcionário será desenvolvido em breve");
+        usuario.tipo = "profissional";
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+        
+        window.location.href = "cadastroProfissional.html"
     }
 }
