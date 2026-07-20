@@ -65,7 +65,7 @@ function gerarIdUnico() {
    ============================================================ */
 
 function gerarCodigoAcesso() {
-    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ123456789";
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
     let codigo = "";
     for (let i = 0; i < 8; i++) {
         if (i === 4) codigo += "-";
