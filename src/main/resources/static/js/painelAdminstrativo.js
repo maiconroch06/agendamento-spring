@@ -1,5 +1,12 @@
 
 
+gerarCodigo();
+
+sincronizarPainel();
+
+window.onload = preencherPainel; 
+//preencherPainel();
+
 /* ============================================================
    UTILITÁRIOS
    ============================================================ */
@@ -40,46 +47,6 @@ function gerarIdUnico() {
 }
 
 /* ============================================================
-   ABAS DE AUTH
-   ============================================================ */
-
-document.querySelectorAll(".auth-aba").forEach(aba => {
-    aba.addEventListener("click", () => {
-        document.querySelectorAll(".auth-aba").forEach(a => a.classList.remove("ativa"));
-        aba.classList.add("ativa");
-
-        const qual = aba.dataset.aba;
-        document.getElementById("form-login").hidden = qual !== "login";
-        document.getElementById("form-cadastro").hidden = qual !== "cadastro";
-    });
-});
-
-/* ============================================================
-   DIAS DE FUNCIONAMENTO
-   ============================================================ */
-
-document.querySelectorAll(".dia-btn").forEach(btn => {
-    btn.addEventListener("click", () => btn.classList.toggle("ativo"));
-});
-
-/* ============================================================
-   MÁSCARA CNPJ
-   ============================================================ */
-
-function aplicarMascaraCnpj(input) {
-    input.addEventListener("input", () => {
-        let v = input.value.replace(/\D/g, "").slice(0, 14);
-        v = v.replace(/^(\d{2})(\d)/, "$1.$2");
-        v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
-        v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
-        v = v.replace(/(\d{4})(\d)/, "$1-$2");
-        input.value = v;
-    });
-}
-
-aplicarMascaraCnpj(document.getElementById("edit-emp-cnpj"));
-
-/* ============================================================
    TELA 6: PAINEL
    ============================================================ */
 
@@ -108,6 +75,7 @@ function copiarCodigo() {
 
 function preencherPainel() {
     let emp = JSON.parse(localStorage.getItem("empresa"))
+    
     if (!emp) return;
 
     document.getElementById("sidebar-nome-empresa").textContent = emp.nome;
@@ -116,7 +84,7 @@ function preencherPainel() {
     document.getElementById("perfil-cnpj").textContent = emp.cnpj;
     document.getElementById("perfil-expediente").textContent = `${emp.abertura} – ${emp.fechamento}`;
     document.getElementById("perfil-dias").textContent =
-        emp.dias.length > 0 ? emp.dias.map(d => d.charAt(0).toUpperCase() + d.slice(1)).join(", ") : "Nenhum";
+    emp.dias.length > 0 ? emp.dias.map(d => d.charAt(0).toUpperCase() + d.slice(1)).join(", ") : "Nenhum";
     document.getElementById("codigo-acesso").textContent = codigoAcesso;
 
     sincronizarPainel();
@@ -187,7 +155,7 @@ function moverItemPainel(tipo, id, direcao) {
    SIDEBAR: TROCA DE ABA
    ============================================================ */
 
-function mudarAba(qual) {
+function mudarAba(event, qual) {
     document.querySelectorAll(".aba").forEach(a => a.classList.remove("ativa"));
     document.querySelectorAll(".sidebar__item").forEach(i => i.classList.remove("ativo"));
     document.getElementById(`aba-${qual}`).classList.add("ativa");
@@ -199,12 +167,13 @@ function mudarAba(qual) {
    ============================================================ */
 
 function editarEmpresa() {
-    let empresa = JSON.parse(localStorage.getItem("empresa"))
+    let emp = JSON.parse(localStorage.getItem("empresa"))
     document.getElementById("edit-emp-nome").value = emp.nome;
     document.getElementById("edit-emp-categoria").value = emp.categoria;
     document.getElementById("edit-emp-cnpj").value = emp.cnpj;
     document.getElementById("edit-emp-abertura").value = emp.abertura;
     document.getElementById("edit-emp-fechamento").value = emp.fechamento;
+    document.getElementById("edit-emp-fechamento").value = emp.dias;
 
     document.getElementById("modal-empresa").hidden = false;
     document.getElementById("modal-overlay").hidden = false;
@@ -225,12 +194,11 @@ function salvarEdicaoEmpresa() {
     if (!nome) { mostrarAviso("Informe o nome da empresa"); return; }
 
     const empresa = {
-        empresa = empresa,
-        nome = nome,
-        categoria = categoria,
-        cnpj = cnpj,
-        abertura = abertura,
-        fechamento = fechamento
+        nome,
+        categoria,
+        cnpj,
+        abertura,
+        fechamento
     }
 
     localStorage.setItem("empresa", JSON.stringify(empresa));
@@ -275,7 +243,9 @@ async function adicionarServicoPainel() {
         foto: foto
     }
 
-    localStorage.setItem("id", JSON.stringify(servico));
+    servicos.push(servico);
+
+    localStorage.setItem("servicos", JSON.stringify(servicos));
 
     fecharFormServico();
     sincronizarPainel();
@@ -307,14 +277,16 @@ async function adicionarProfissionalPainel() {
 
     const foto = await lerArquivoBase64(fotoInput);
     
-    const profissionais = {
+    const profissional = {
         id: gerarIdUnico(),
         nome: nome,
         cargo: cargo,
         foto: foto
     }
 
-    localStorage.setItem("id", JSON.stringify(profissionais));
+    profissionais.push(profissional);
+
+    localStorage.setItem("profissionais", JSON.stringify(profissionais));
 
     fecharFormProfissional();
     sincronizarPainel();
@@ -327,10 +299,10 @@ async function adicionarProfissionalPainel() {
 
 function sair() {
     if (!confirm("Deseja sair do sistema?")) return;
-    usuario = null;
-    empresa = null;
-    servicos = [];
-    profissionais = [];
-    codigoAcesso = null;
+    /*localStorage.removeItem("usuario");
+    localStorage.removeItem("empresa");
+    localStorage.removeItem("servicos");
+    localStorage.removeItem("profissionais");
+    localStorage.removeItem("codigoAcesso");*/
     window.location.href = "autenticacao.html"
 }
