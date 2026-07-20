@@ -9,6 +9,81 @@ let servicos = JSON.parse(localStorage.getItem("servicos")) || {
     tempo: tempo,
     foto: foto
 };
+renderizarCardsServicos("lista-cards-servicos", servicos, "vazia-servicos");
+sincronizarPainel();
+
+/* ============================================================
+   UTILITÁRIOS
+   ============================================================ */
+
+function mostrarAviso(msg) {
+    const el = document.getElementById("aviso");
+    el.textContent = msg;
+    el.classList.add("visivel");
+    setTimeout(() => el.classList.remove("visivel"), 2500);
+}
+
+function irParaTela(id) {
+    document.querySelectorAll(".tela").forEach(t => {
+        t.classList.remove("ativa");
+        t.hidden = true;
+    });
+    const tela = document.getElementById(id);
+    tela.hidden = false;
+    tela.classList.add("ativa");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function limparErro(inputId, erroId) {
+    const input = document.getElementById(inputId);
+    const erro = document.getElementById(erroId);
+    if (input) input.classList.remove("invalido");
+    if (erro) erro.textContent = "";
+}
+
+function definirErro(inputId, erroId, msg) {
+    const input = document.getElementById(inputId);
+    const erro = document.getElementById(erroId);
+    if (input) input.classList.add("invalido");
+    if (erro) erro.textContent = msg;
+}
+
+function lerArquivoBase64(input) {
+    return new Promise((resolve) => {
+        const arquivo = input.files[0];
+        if (!arquivo) { resolve(null); return; }
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(arquivo);
+    });
+}
+
+function gerarIdUnico() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+}
+
+/* ============================================================
+   ABAS DE AUTH
+   ============================================================ */
+
+document.querySelectorAll(".auth-aba").forEach(aba => {
+    aba.addEventListener("click", () => {
+        document.querySelectorAll(".auth-aba").forEach(a => a.classList.remove("ativa"));
+        aba.classList.add("ativa");
+
+        const qual = aba.dataset.aba;
+        document.getElementById("form-login").hidden = qual !== "login";
+        document.getElementById("form-cadastro").hidden = qual !== "cadastro";
+    });
+});
+
+/* ============================================================
+   DIAS DE FUNCIONAMENTO
+   ============================================================ */
+
+document.querySelectorAll(".dia-btn").forEach(btn => {
+    btn.addEventListener("click", () => btn.classList.toggle("ativo"));
+});
 
 /* ============================================================
    TELA 4: SERVIÇOS (cadastro)
@@ -25,8 +100,8 @@ async function adicionarServico() {
     if (isNaN(tempo) || tempo < 5) { mostrarAviso("Informe uma duração válida"); return; }
 
     const foto = await lerArquivoBase64(fotoInput);
-
-    const servicos = {
+    
+    const servico = {
         id: gerarIdUnico(),
         nome: nome,
         preco: preco,
@@ -126,6 +201,42 @@ function moverItem(id, direcao) {
     }
 }*/
 
+function sincronizarPainel() {
+    const containerS = document.getElementById("lista-servicos-painel");
+    
+    if (!containerS) return;
+
+    if (servicos.length === 0) {
+        containerS.innerHTML = `<p class="lista-vazia">Nenhum serviço cadastrado.</p>`;
+    } else {
+        containerS.innerHTML = servicos.map(s => `
+            <div class="item-card" data-id="${s.id}">
+                <div class="ordem-btns">
+                    <button class="ordem-btn" onclick="moverItemPainel('servico', '${s.id}', -1)">▲</button>
+                    <button class="ordem-btn" onclick="moverItemPainel('servico', '${s.id}', 1)">▼</button>
+                </div>
+                ${s.foto
+                    ? `<img class="item-card__foto" src="${s.foto}" alt="${s.nome}">`
+                    : `<div class="item-card__foto-placeholder">✂️</div>`
+                }
+                <div class="item-card__nome">${s.nome}</div>
+                <div class="item-card__meta">
+                    <span>${s.tempo} min</span>
+                    <span>R$ ${s.preco.toFixed(2).replace(".", ",")}</span>
+                </div>
+                <div class="item-card__acoes">
+                    <button onclick="editarServico('${s.id}')">Editar</button>
+                    <button class="btn-remover" onclick="removerServico('${s.id}')">Remover</button>
+                </div>
+            </div>
+        `).join("");
+    }
+}
+
+function voltar() {
+    window.location.href = "cadastroEmpresa.html"
+}
+
 function salvarServicos() {
-    irParaTela("tela-profissionais");
+    window.location.href = "painelAdministrativo.html"
 }
