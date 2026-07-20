@@ -2,13 +2,8 @@
    ESTADO SERVIÇOS
    ============================================================ */
 
-let servicos = JSON.parse(localStorage.getItem("servicos")) || {
-    id: gerarIdUnico(),
-    nome: nome,
-    preco: preco,
-    tempo: tempo,
-    foto: foto
-};
+let servicos = JSON.parse(localStorage.getItem("servicos")) || [];
+
 renderizarCardsServicos("lista-cards-servicos", servicos, "vazia-servicos");
 sincronizarPainel();
 
@@ -109,14 +104,16 @@ async function adicionarServico() {
         foto: foto
     }
 
-    localStorage.setItem("id", JSON.stringify(servicos));
+    servicos.push(servico);
+
+    localStorage.setItem("servicos", JSON.stringify(servicos));
 
     document.getElementById("srv-nome").value = "";
     document.getElementById("srv-preco").value = "";
     document.getElementById("srv-tempo").value = "";
     fotoInput.value = "";
 
-    renderizarCardsServicos("lista-cards-servicos", JSON.parse(localStorage.getItem("servicos")), "vazia-servicos");
+    renderizarCardsServicos("lista-cards-servicos", servicos, "vazia-servicos");
 }
 
 function renderizarCardsServicos(containerId, lista, vaziaId) {
@@ -156,13 +153,14 @@ function renderizarCardsServicos(containerId, lista, vaziaId) {
 }
 
 function removerServico(id) {
-    app.servicos = app.servicos.filter(s => s.id !== id);
-    renderizarCardsServicos("lista-cards-servicos", app.servicos, "vazia-servicos");
+    servicos = servicos.filter(s => s.id !== id);
+    localStorage.setItem("servicos", JSON.stringify(servicos));
+    renderizarCardsServicos("lista-cards-servicos", servicos, "vazia-servicos");
     sincronizarPainel();
 }
 
 function editarServico(id) {
-    const s = app.servicos.find(s => s.id === id);
+    const s = servicos.find(s => s.id === id);
     if (!s) return;
     const novoNome = prompt("Nome do serviço:", s.nome);
     if (novoNome !== null && novoNome.trim()) s.nome = novoNome.trim();
@@ -170,20 +168,20 @@ function editarServico(id) {
     if (novoPreco !== null && !isNaN(parseFloat(novoPreco))) s.preco = parseFloat(novoPreco);
     const novoTempo = prompt("Duração (min):", s.tempo);
     if (novoTempo !== null && !isNaN(parseInt(novoTempo))) s.tempo = parseInt(novoTempo);
-    renderizarCardsServicos("lista-cards-servicos", JSON.parse(localStorage.getItem("servicos")), "vazia-servicos");
+    localStorage.setItem("servicos", JSON.stringify(servicos));
+    renderizarCardsServicos("lista-cards-servicos", servicos, "vazia-servicos");
     sincronizarPainel();
 }
 
 function moverItem(id, direcao) {
-    const lista = JSON.parse(localStorage.getItem("servicos"));
+    const lista = servicos;
     const idx = lista.findIndex(i => i.id === id);
     const novoIdx = idx + direcao;
     if (novoIdx < 0 || novoIdx >= lista.length) return;
     [lista[idx], lista[novoIdx]] = [lista[novoIdx], lista[idx]];
-    if (tipo === "servico") {
-        renderizarCardsServicos("lista-cards-servicos", JSON.parse(localStorage.getItem("servicos")), "vazia-servicos");
-        sincronizarPainel();
-    }
+    localStorage.setItem("servicos", JSON.stringify(servicos));
+    renderizarCardsServicos("lista-cards-servicos", servicos, "vazia-servicos");
+    sincronizarPainel();
 }
 
 /*function moverItem(tipo, id, direcao) {
@@ -238,5 +236,6 @@ function voltar() {
 }
 
 function salvarServicos() {
+    localStorage.setItem("servicos", JSON.stringify(servicos));
     window.location.href = "painelAdministrativo.html"
 }
