@@ -1,4 +1,18 @@
+/* ============================================================
+   ESTADO SERVIÇOS
+   ============================================================ */
 
+let usuario = JSON.parse(localStorage.getItem("usuario")) || {
+    nome: "",
+    senha: "",
+    email: ""
+};
+
+console.log(usuario)
+console.log(usuario.tipo)
+
+let servicos = JSON.parse(localStorage.getItem("servicos")) || [];
+let profissionais = JSON.parse(localStorage.getItem("profissionais")) || [];
 
 gerarCodigo();
 
@@ -62,6 +76,7 @@ function gerarCodigoAcesso() {
 
 function gerarCodigo() {
     codigoAcesso = gerarCodigoAcesso();
+    localStorage.setItem("codigoAcesso", codigoAcesso);
     document.getElementById("codigo-acesso").textContent = codigoAcesso;
     mostrarAviso("Novo código gerado!");
 }
@@ -291,6 +306,56 @@ async function adicionarProfissionalPainel() {
     fecharFormProfissional();
     sincronizarPainel();
     mostrarAviso("Profissional adicionado!");
+}
+
+function moverItem(tipo, id, direcao) {
+    const lista = tipo === "servico" ? servicos : profissionais;
+    const idx = lista.findIndex(i => i.id === id);
+    const novoIdx = idx + direcao;
+    if (novoIdx < 0 || novoIdx >= lista.length) return;
+    [lista[idx], lista[novoIdx]] = [lista[novoIdx], lista[idx]];
+    if (tipo === "servico") {
+        sincronizarPainel();
+    } else {
+        sincronizarPainel();
+    }
+}
+
+
+function removerServico(id) {
+    servicos = servicos.filter(s => s.id !== id);
+    localStorage.setItem("servicos", JSON.stringify(servicos));
+    sincronizarPainel();
+}
+
+function editarServico(id) {
+    const s = servicos.find(s => s.id === id);
+    if (!s) return;
+    const novoNome = prompt("Nome do serviço:", s.nome);
+    if (novoNome !== null && novoNome.trim()) s.nome = novoNome.trim();
+    const novoPreco = prompt("Preço (R$):", s.preco);
+    if (novoPreco !== null && !isNaN(parseFloat(novoPreco))) s.preco = parseFloat(novoPreco);
+    const novoTempo = prompt("Duração (min):", s.tempo);
+    if (novoTempo !== null && !isNaN(parseInt(novoTempo))) s.tempo = parseInt(novoTempo);
+    localStorage.setItem("servicos", JSON.stringify(servicos));
+    sincronizarPainel();
+}
+
+function removerProfissional(id) {
+    profissionais = profissionais.filter(p => p.id !== id);
+    localStorage.setItem("profissionais", JSON.stringify(profissionais));
+    sincronizarPainel();
+}
+
+function editarProfissional(id) {
+    const p = profissionais.find(p => p.id === id);
+    if (!p) return;
+    const novoNome = prompt("Nome do profissional:", p.nome);
+    if (novoNome !== null && novoNome.trim()) p.nome = novoNome.trim();
+    const novoCargo = prompt("Cargo:", p.cargo);
+    if (novoCargo !== null && novoCargo.trim()) p.cargo = novoCargo.trim();
+    localStorage.setItem("profissionais", JSON.stringify(profissionais));
+    sincronizarPainel();
 }
 
 /* ============================================================
