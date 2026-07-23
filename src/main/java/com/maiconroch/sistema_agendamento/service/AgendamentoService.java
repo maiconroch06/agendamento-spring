@@ -19,10 +19,10 @@ public class AgendamentoService {
 	
 	public Agendamentos salvarAgendamento(Agendamentos agendamento) {
 		LocalDateTime horaInicio = agendamento.getDataHoraAgendamento();
-		LocalDateTime horaFim = agendamento.getDataHoraAgendamento().plusHours(1);
-		String profissional = agendamento.getProfissional();
-		
-		List<Agendamentos> agendados = agendamentoRepository.findByProfissionalAndDataHoraAgendamentoBetween(profissional, horaInicio, horaFim);
+		LocalDateTime horaFim = agendamento.getDataHoraAgendamento().plusHours(agendamento.getServico().getDuracaoMinutos());
+		String funcionario = agendamento.getFuncionario().getNome();
+				
+		List<Agendamentos> agendados = agendamentoRepository.findByProfissionalAndDataHoraAgendamentoBetween(funcionario, horaInicio, horaFim);
 		
 		if (!agendados.isEmpty()) {
 			throw new RuntimeException("O horário já está preenchido.");
