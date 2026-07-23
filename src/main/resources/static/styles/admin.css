@@ -58,7 +58,7 @@ body {
 
 #tela-empresa.ativa,
 #tela-servicos.ativa,
-#tela-profissionais.ativa {
+#tela-profissional.ativa {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -225,7 +225,7 @@ body {
 .campo {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
 }
 
 .campo label {
@@ -235,6 +235,7 @@ body {
 }
 
 .campo input[type="text"],
+.campo input[type="tel"],
 .campo input[type="email"],
 .campo input[type="password"],
 .campo input[type="number"],
@@ -761,7 +762,7 @@ body {
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .divisor {
