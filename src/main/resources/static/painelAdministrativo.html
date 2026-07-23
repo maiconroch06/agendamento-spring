@@ -19,16 +19,16 @@
                 <span class="sidebar__nome" id="sidebar-nome-empresa">Empresa</span>
             </div>
             <nav class="sidebar__nav">
-                <button class="sidebar__item ativo" onclick="mudarAba('perfil')">
+                <button class="sidebar__item ativo" onclick="mudarAba(event, 'perfil')">
                     <span>🏢</span> Perfil da empresa
                 </button>
-                <button class="sidebar__item" onclick="mudarAba('servicos')">
+                <button class="sidebar__item" onclick="mudarAba(event, 'servicos')">
                     <span>✂️</span> Serviços
                 </button>
-                <button class="sidebar__item" onclick="mudarAba('profissionais')">
+                <button class="sidebar__item" onclick="mudarAba(event, 'profissionais')">
                     <span>👤</span> Profissionais
                 </button>
-                <button class="sidebar__item" onclick="mudarAba('financeiro')">
+                <button class="sidebar__item" onclick="mudarAba(event, 'financeiro')">
                     <span>💰</span> Financeiro
                 </button>
             </nav>
@@ -125,8 +125,8 @@
             <section id="aba-profissionais" class="aba">
                 <div class="painel-cabecalho">
                     <h1>Profissionais</h1>
-                    <button class="btn-secundario" onclick="abrirFormProfissional()">+ Novo profissional</button>
-                </div>
+                    <!-- <button class="btn-secundario" onclick="abrirFormProfissional()">+ Novo profissional</button> -->
+                </div> 
 
                 <div id="form-profissional-painel" hidden>
                     <form class="form-inline form-inline--painel" novalidate>
