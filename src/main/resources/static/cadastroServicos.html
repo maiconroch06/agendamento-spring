@@ -12,13 +12,13 @@
      ============================================================ -->
     <div id="tela-servicos" class="tela ativa" hidden>
         <div class="auth-container auth-container--largo">
-            <div class="passo-indicador">
+            <!-- <div class="passo-indicador">
                 <span class="passo concluido">1. Empresa</span>
                 <span class="passo-linha"></span>
                 <span class="passo ativo">2. Serviços</span>
                 <span class="passo-linha"></span>
                 <span class="passo">3. Profissionais</span>
-            </div>
+            </div> -->
 
             <h1 class="tela__titulo">Serviços oferecidos</h1>
             <p class="tela__subtitulo">Adicione os serviços que sua empresa realiza</p>
@@ -50,11 +50,14 @@
             </div>
 
             <div class="nav-duplo">
-                <button class="btn-ghost" onclick="irParaTela('tela-empresa')">← Voltar</button>
+                <button class="btn-ghost" onclick="voltar()">← Voltar</button>
                 <button class="btn-primario" onclick="salvarServicos()">Próximo →</button>
             </div>
         </div>
     </div>
-    <script src="js/cadastroEmpresa.js"></script>
+
+    <div class="aviso" id="aviso"></div>
+
+    <script src="js/cadastroServicos.js"></script>
 </body>
 </html>
