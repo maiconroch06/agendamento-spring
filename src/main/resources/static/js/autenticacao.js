@@ -5,8 +5,12 @@
 let usuario = JSON.parse(localStorage.getItem("usuario")) || {
     nome: "",
     senha: "",
-    email: ""
+    email: "",
+    tipo: ""
 };
+
+console.log(usuario)
+console.log(JSON.parse(localStorage.getItem("empresa")))
 
 /*  ===========================================================
     UTILITÁRIOS
@@ -37,7 +41,12 @@ document.querySelectorAll(".auth-aba").forEach(aba => {
 
         const qual = aba.dataset.aba;
         document.getElementById("form-login").hidden = qual !== "login";
+        limparErro("login-usuario", "erro-login-usuario");
+        limparErro("login-senha", "erro-login-senha");
         document.getElementById("form-cadastro").hidden = qual !== "cadastro";
+        ["cad-nome","cad-email","cad-senha","cad-confirmar"].forEach((id, i) => {
+            limparErro(id, ["erro-cad-nome","erro-cad-email","erro-cad-senha","erro-cad-confirmar"][i]);
+        });
     });
 });
 
@@ -54,10 +63,12 @@ function fazerLogin() {
     limparErro("login-usuario", "erro-login-usuario");
     limparErro("login-senha", "erro-login-senha");
 
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    console.log(usuario)
+
 
     if (!usuario) {
-        definirErro("login-usuario", "erro-login-usuario", "Nenhum usuário cadastrado.");
+        definirErro("login-usuario", "erro-login-usuario", "Digite o nome de usuário ou e-mail.");
+        definirErro("login-senha", "erro-login-senha", "Digite uma senha.");
         return;
     }
 
@@ -73,7 +84,13 @@ function fazerLogin() {
 
     if (!valido) return;
 
-    window.location.href = "tipoUsuario.html";
+    if (usuario.tipo == "admin") {
+        window.location.href = "painelAdministrativo.html";
+        return;
+    }
+    if (usuario.tipo == "profissional") {
+        window.location.href = "painelProfissional.html";
+    }
 }
 
 /* ============================================================
@@ -107,7 +124,7 @@ function fazerCadastro() {
         valido = false;
     }
 
-    if (senha !== confirmar) {
+    if (senha !== confirmar || confirmar == "") {
         definirErro("cad-confirmar", "erro-cad-confirmar", "As senhas não coincidem");
         valido = false;
     }
