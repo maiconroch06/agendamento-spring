@@ -880,3 +880,89 @@ body {
     .sidebar__sair { margin: 0; }
     .painel-main { padding: 16px; }
 }
+
+
+
+.codigo-validacao{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.codigo-validacao label{
+    font-size:14px;
+    color:#b4b2a9;
+}
+
+.grupo-codigo{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    gap:10px;
+}
+
+.grupo-codigo .codigo:nth-child(4){
+    margin-right:35px;
+    position:relative;
+}
+
+
+
+.codigo{
+    width:55px;
+    height:60px;
+
+    border:1px solid #4a473f;
+    border-radius:12px;
+
+    background:#161513;
+    color:#f1efe8;
+
+    font-size:28px;
+    font-weight:600;
+
+    text-align:center;
+    outline:none;
+    transition:.2s;
+}
+
+.codigo:focus{
+    border-color:#5dcaa5;
+    box-shadow:0 0 0 3px rgba(93,202,165,.18);
+}
+
+.separador{
+    font-size:30px;
+    color:#888780;
+    font-weight:bold;
+    margin:0 5px;
+}
+
+.bloco-codigo{
+    display:flex;
+    gap:10px;
+}
+
+.bloco-codigo:first-child{
+    position:relative;
+}
+
+.bloco-codigo:first-child::after{
+
+    content:"-";
+
+    position:absolute;
+
+    right:268px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    color:#888780;
+
+}
