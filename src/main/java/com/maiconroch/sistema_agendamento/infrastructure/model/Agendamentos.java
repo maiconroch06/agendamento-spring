@@ -35,19 +35,22 @@ public class Agendamentos {
 
 	@ManyToOne
 	@JoinColumn(name = "empresa_id", nullable = false)
-	private Long empresaId;
+	private Empresas empresa;
 	
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private Long clienteId;
+    private Usuarios cliente;
 
     @ManyToOne
     @JoinColumn(name = "funcionario_id", nullable = false)
-    private Long funcionarioId;
+    private Funcionarios funcionario;
 
-    @ManyToOne
+    @ManyToOne // furamente implementar ManyToMany
     @JoinColumn(name = "servico_id", nullable = false)
-    private Long servicoId;
+    private Servicos servico;
+    
+    @Column(name = "data_agendamento", nullable = false)
+    private LocalDateTime dataHoraAgendamento;
     
     @Enumerated(EnumType.STRING)
     private StatusAgendamento status = StatusAgendamento.PENDENTE;
