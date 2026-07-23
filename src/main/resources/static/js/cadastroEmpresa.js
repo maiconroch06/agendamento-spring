@@ -3,12 +3,27 @@ let empresa = JSON.parse(localStorage.getItem("empresa")) || {
     categoria: "",
     cnpj: "",
     abertura: "",
-    fechamento: ""
+    fechamento: "",
+    dias: []
 }
 
 /* ============================================================
    UTILITÁRIOS
    ============================================================ */
+
+function limparErro(inputId, erroId) {
+    const input = document.getElementById(inputId);
+    const erro = document.getElementById(erroId);
+    if (input) input.classList.remove("invalido");
+    if (erro) erro.textContent = "";
+}
+
+function definirErro(inputId, erroId, msg) {
+    const input = document.getElementById(inputId);
+    const erro = document.getElementById(erroId);
+    if (input) input.classList.add("invalido");
+    if (erro) erro.textContent = msg;
+}
 
 function mostrarAviso(msg) {
     const el = document.getElementById("aviso");
@@ -66,9 +81,14 @@ function salvarEmpresa() {
         categoria: categoria,
         cnpj: cnpj,
         abertura: abertura,
-        fechamento: fechamento
+        fechamento: fechamento,
+        dias: diasAtivos
     }
 
     localStorage.setItem("empresa", JSON.stringify(empresa));
     window.location.href = "cadastroServicos.html";
+}
+
+function voltar() {
+    window.location.href = "tipoUsuario.html"
 }
